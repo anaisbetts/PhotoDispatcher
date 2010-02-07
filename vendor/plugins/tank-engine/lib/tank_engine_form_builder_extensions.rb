@@ -18,6 +18,24 @@ module ActionView
         hidden + row
       end
     end
+
+    module FormTagHelper
+      def toggle_tag(name, is_on, options = {})
+        value = if is_on  then "ON" else "OFF" end
+        hidden = hidden_field_tag(name, value, 
+            :id => "_#{name}")
+        thumb = content_tag(:span, "", :class => "thumb")
+        on = content_tag(:span, "ON", :class => "toggleOn")
+        off = content_tag(:span, "OFF", :class => "toggleOff")
+        toggle = content_tag(:div, thumb + on + off, 
+            :toggled => (if is_on then true else false end),
+            :value => value,
+            :class => "toggle",
+            :id => "#{name}_toggle")
+        row = content_tag(:div, toggle, :class => "row")
+        hidden + row
+      end
+    end
     
     class FormBuilder
         
@@ -26,6 +44,6 @@ module ActionView
       end
       
     end
-    
+
   end
 end

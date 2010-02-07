@@ -26,4 +26,5 @@ ActionController::Routing::Routes.draw do |map|
   #   m.logout '/logout', :action => 'destroy'
   # end
 
+  map.root :controller => 'welcome'
 end

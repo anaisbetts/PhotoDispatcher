@@ -65,7 +65,7 @@ function make_toggles() {
 
 
 function init() {
-  make_sliders();
+  //make_sliders();
   make_toggles();
 }
 
