@@ -18,5 +18,9 @@ config.action_mailer.raise_delivery_errors = false
 
 HOST = 'localhost'
 
-PHOTO_IMPORT_FOLDER = File.join(File.dirname(__FILE__), '..', '..', 'test', 'fixtures', 'PhotoImportTest')
-PHOTO_THUMBNAIL_FOLDER = File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'photo_cache')
+def realpath(s)
+  Pathname.new(s).realpath.to_s
+end
+
+PHOTO_IMPORT_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'test', 'fixtures', 'PhotoImportTest'))
+PHOTO_THUMBNAIL_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'photo_cache'))

@@ -27,4 +27,10 @@ ActionController::Routing::Routes.draw do |map|
   # end
 
   map.root :controller => 'welcome'
+
+  map.resources :photos
+
+  { 'i' => 'index', 'lt' => 'largethumbnail', 'tt' => 'tinythumbnail' }.each do |k, action|
+    map.connect "#{k}/*relativepath", :controller => 'image', :action => action
+  end
 end

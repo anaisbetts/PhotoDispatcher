@@ -77,5 +77,7 @@ private
     thumb_path = Photo.thumbnail_path(type, f.dirname.to_s, temp_out.path, thumb_root_path)
     logger.debug "Moving file to '#{thumb_path}'"
     FileUtils.move temp_out.path, thumb_path
+
+    thumb_path
   end
 end
