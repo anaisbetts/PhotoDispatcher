@@ -11,6 +11,9 @@ class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
 
+  def logger
+    RAILS_DEFAULT_LOGGER
+  end
 end
 
 class ActionView::TestCase
@@ -30,4 +33,17 @@ end
 
 class ActionController::TestCase
   include ActionView::Helpers::RecordIdentificationHelper
+end
+
+if true ## Change this when debugging tests
+  class Workling::Base
+    @@logger = Logger.new(STDERR)
+  end
+
+  class ActiveSupport::TestCase
+    @@debug_logger = Logger.new(STDERR)
+    def logger
+      @@debug_logger
+    end
+  end
 end

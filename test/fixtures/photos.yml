@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  relativepath: MyString
+  tinythumbnail: MyString
+  largethumbnail: MyString
+  exif_data_yaml: MyString
+
+two:
+  relativepath: MyString
+  tinythumbnail: MyString
+  largethumbnail: MyString
+  exif_data_yaml: MyString

@@ -33,8 +33,8 @@ Rails::Initializer.run do |config|
              :version => '>= 1.0.1'
   config.gem 'remvee-exifr',
              :lib => 'exifr'
+  config.gem 'lockfile'
   config.gem 'right_aws'  ## Workling wants this and doesn't actually list it in its deps
-  config.gem 'workling'
   
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
