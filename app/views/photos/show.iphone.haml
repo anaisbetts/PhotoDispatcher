@@ -2,3 +2,8 @@
 .image
   %a{:href => fullimage_url(@item)}
     %img{:src => largethumbnail_url(@item)}
+  %p= "#{@item.exif_data[:width]}x#{@item.exif_data[:width]}"
+
+.image
+  %a{:href => latlng_map_link_url(@item)}
+    %img{:src => latlng_map_url(@item)}

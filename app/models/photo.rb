@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
   validates_uniqueness_of :relativepath
-  #validates_presence_of :tinythumbnail
-  #validates_presence_of :largethumbnail
+  validates_presence_of :tinythumbnail
+  validates_presence_of :largethumbnail
 
   validate :relativepath_doesnt_escape_photo_dir
 
@@ -25,6 +25,20 @@ class Photo < ActiveRecord::Base
 
   def filename
     relativepath.gsub /^.*\/([^\/]*)$/, '\1'
+  end
+
+  def exif_data
+    @exif_data || (@exif_data = YAML.load(exif_data_yaml))
+  end
+
+  def lat_lng
+    return nil unless exif_data[:gps_latitude] and exif_data[:gps_longitude]
+
+    # Exifr returns this as a tuple of Rationals, like 50 deg, 30', 24"
+    # Convert these to decimal values that GMaps understands
+    [exif_data[:gps_latitude], exif_data[:gps_longitude]].zip([exif_data[:gps_latitude_ref], exif_data[:gps_longitude_ref]]).map do |x, ref|
+      (x[0] + (x[1] / 60) + (x[2] / 3600)).to_f * (['N', 'E'].include?(ref) ? 1.0 : -1.0)
+    end
   end
 
   class << self

@@ -12,7 +12,5 @@ class PhotosController < ApplicationController
 
   def show
     @item = Photo.find_by_id(params[:id], :limit => 1)
-    @photos_url = photos_url
-    @filename = @item.filename
   end
 end

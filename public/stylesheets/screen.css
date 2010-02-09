@@ -1,3 +1,6 @@
 .image {
   padding: 10px;
-  text-align: center; }
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+  max-width: 300px; }
