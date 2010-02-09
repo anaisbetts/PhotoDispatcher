@@ -1,13 +1,29 @@
+PhotoThumbnailSizes = {
+  :tinythumbnail => [32, 21],
+  :largethumbnail => [300, 200],
+}
+
 class Photo < ActiveRecord::Base
   validates_uniqueness_of :relativepath
   validates_presence_of :tinythumbnail
   validates_presence_of :largethumbnail
-
   validate :relativepath_doesnt_escape_photo_dir
+
+  before_destroy :delete_associated_files
+
+
+  ##
+  ## Validators
+  ##
 
   def relativepath_doesnt_escape_photo_dir
     errors.add_to_base("absolutepath '#{relativepath}' is outside import folder") unless absolutepath
   end
+
+
+  ##
+  ## Helper properties
+  ##
 
   def absolutepath
     pn = nil
@@ -41,18 +57,38 @@ class Photo < ActiveRecord::Base
     end
   end
 
+
+  ##
+  ## Callbacks
+  ##
+
+  def delete_associated_files
+    # Blow away our thumbnails first
+    PhotoThumbnailSizes.keys.map{|x| self.send(x)}.each{|x| FileUtils.rm x}
+    FileUtils.rm absolutepath
+  end
+
+
+  ##
+  ## Class Methods
+  ##
+
   class << self
     def thumbnail_path(type, enclosing_dir, full_image_path, image_cache_dir = nil)
       path_hash = Digest::SHA1.hexdigest(enclosing_dir)
       contents_hash = Digest::SHA1.file(full_image_path).hexdigest
 
-      cachedir = image_cache_dir || PHOTO_THUMBNAIL_FOLDER
+      cachedir = image_cache_dir || photo_thumbnail_folder
       raise "Thumbnail folder not set, set it in config/environments/*" unless cachedir
       File.join(cachedir, [path_hash, contents_hash, type].join('_')) + ".jpg"
     end
 
     def photo_import_folder
       return PHOTO_IMPORT_FOLDER
+    end
+
+    def photo_thumbnail_folder
+      return PHOTO_THUMBNAIL_FOLDER
     end
   end
 end

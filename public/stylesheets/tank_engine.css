@@ -85,7 +85,7 @@ body[orient="landscape"] > .toolbar > h1 {
   border-width: 0 8px 0 14px;
   -webkit-border-image: url(/images/tank_engine/backButton.png) 0 8 0 14; }
 
-.whiteButton, .grayButton {
+.whiteButton, .grayButton, .redButton, .yesNoButton {
   display: block;
   border-width: 0 12px;
   padding: 10px;
@@ -93,18 +93,26 @@ body[orient="landscape"] > .toolbar > h1 {
   font-size: 20px;
   font-weight: bold;
   text-decoration: inherit;
-  color: inherit; }
-
-.whiteButton {
-  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12;
-  margin: 10px 10px 10px 10px;
-  text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0; }
-  .whiteButton a, .whiteButton a:active, .whiteButton a:visited {
+  color: inherit;
+  margin: 10px 10px 10px 10px; }
+  .whiteButton a, .whiteButton a:active, .whiteButton a:visited, .grayButton a, .grayButton a:active, .grayButton a:visited, .redButton a, .redButton a:active, .redButton a:visited, .yesNoButton a, .yesNoButton a:active, .yesNoButton a:visited {
     color: #222;
     text-decoration: none; }
 
+.whiteButton, .yesNoButton {
+  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12;
+  text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0; }
+
 .grayButton {
   -webkit-border-image: url(/images/tank_engine/grayButton.png) 0 12 0 12;
+  color: #FFFFFF; }
+
+.yesNoButton {
+  width: 70px;
+  display: inline; }
+
+.redButton {
+  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12;
   color: #FFFFFF; }
 
 .group_like_header {

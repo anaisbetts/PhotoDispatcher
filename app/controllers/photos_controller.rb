@@ -14,4 +14,11 @@ class PhotosController < ApplicationController
     @item = Photo.find_by_id(params[:id], :limit => 1)
     @actions = ActionsFramework.actions.select{|x| ActionsFramework[x].can_invoke? @item}.map{|x| ActionsFramework[x]}
   end
+
+  def destroy
+    item = Photo.find_by_id(params[:id], :limit => 1)
+    item.destroy
+    
+    redirect_to :action => 'index'
+  end
 end

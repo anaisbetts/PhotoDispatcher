@@ -33,4 +33,6 @@ ActionController::Routing::Routes.draw do |map|
   { 'i' => 'index', 'lt' => 'largethumbnail', 'tt' => 'tinythumbnail' }.each do |k, action|
     map.connect "#{k}/:id", :controller => 'image', :action => action
   end
+
+  map.connect "action/invoke/:name/:id", :controller => 'action', :action => 'invoke'
 end

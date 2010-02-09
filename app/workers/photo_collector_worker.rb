@@ -1,10 +1,5 @@
 require 'tempfile'
 
-PhotoThumbnailSizes = {
-  :tinythumbnail => [32, 21],
-  :largethumbnail => [300, 200],
-}
-
 class PhotoCollectorWorker < Workling::Base
   def collect(options = {})
     rf_path = options[:root_folder] || PHOTO_IMPORT_FOLDER

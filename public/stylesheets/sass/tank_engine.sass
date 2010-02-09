@@ -97,7 +97,7 @@ body[orient="landscape"] > .toolbar > h1
   -webkit-border-image: url(/images/tank_engine/backButton.png) 0 8 0 14
 
 
-.whiteButton, .grayButton
+.whiteButton, .grayButton, .redButton, .yesNoButton
   display: block
   border-width: 0 12px
   padding: 10px
@@ -106,19 +106,26 @@ body[orient="landscape"] > .toolbar > h1
   font-weight: bold
   text-decoration: inherit
   color: inherit
-
-
-.whiteButton
-  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12
   margin: 10px 10px 10px 10px
-  text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0
 
   a, a:active, a:visited
     color: #222
     text-decoration: none
 
+.whiteButton, .yesNoButton
+  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12
+  text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0
+
 .grayButton
   -webkit-border-image: url(/images/tank_engine/grayButton.png) 0 12 0 12
+  color: #FFFFFF
+
+.yesNoButton
+  width: 70px
+  display: inline
+
+.redButton
+  -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12
   color: #FFFFFF
 
 .group_like_header
@@ -296,7 +303,6 @@ fieldset > .row:last-child
     border: 1px solid #143fae
     background: #194fdb url(/images/tank_engine/toggleOn.png) repeat-x
 
-
 .toggleOn
   display: none
   position: absolute
@@ -307,7 +313,6 @@ fieldset > .row:last-child
   color: #FFFFFF
   text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0
 
-
 .toggleOff
   position: absolute
   width: 60px
@@ -316,14 +321,12 @@ fieldset > .row:last-child
   top: 0
   color: #666666
 
-
 .toggle[toggled="true"] >
   .toggleOn
     display: block
 
   .toggleOff
     display: none
-
 
 .thumb
   position: absolute

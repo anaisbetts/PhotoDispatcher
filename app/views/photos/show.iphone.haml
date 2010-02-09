@@ -10,4 +10,6 @@
 
 - @actions.each do |x|
   .whiteButton
-    %a{:href => "http://google.com"}= x.friendly_name
+    = link_to x.friendly_name, {:action => "invoke", :controller => "action", :name => x.class, :id => @item.id}
+
+.redButton= link_to "Delete Photo", {:action => "destroy", :id => @item.id}, :confirm => "Are you sure?", :method => :delete
