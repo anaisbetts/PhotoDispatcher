@@ -40,21 +40,24 @@ class PhotoCollectorWorker < Workling::Base
           raise "Bad EXIF data" unless exifdata
 
           # Create thumbnails of the image
-          ar_opts = PhotoThumbnailSizes.map do |type, resolution| 
-            { type => build_thumbnails(type, resolution, f.to_s, options[:thumb_root_path]) }
+          ar_opts = {}
+          PhotoThumbnailSizes.each do |type, resolution| 
+            ar_opts[type] = build_thumbnails(type, resolution, f.to_s, options[:thumb_root_path])
           end
         rescue
           logger.warn "Failed to process image '#{f.to_s}': #{$!.message}"
-          logger.debug $!.backtrace
+          logger.warn $!.backtrace
           return false if options[:errors_are_fatal]
           next
         end
 
         # Whew! Actually do the work
-        Photo.create(ar_opts) do |f|
+        logger.debug "ar_opts: #{ar_opts}"
+        p = Photo.create(ar_opts) do |f|
           f.relativepath = relative_path
           f.exif_data_yaml = exifdata.to_yaml
         end
+        p.save!
       end
     ensure
       lockfile.unlock

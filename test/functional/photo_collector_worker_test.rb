@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'mocha'
 
 class PhotoWorkerTest < ActiveSupport::TestCase
 
@@ -10,16 +11,20 @@ class PhotoWorkerTest < ActiveSupport::TestCase
       FileUtils.mkdir thumb_dir
       root_dir = fixtures_root_dir
 
+
       assert pcw.collect(:root_folder => root_dir, :thumb_root_path => thumb_dir, 
                          :errors_are_fatal => true)
 
-      fixtures_dir_p = Pathname.new fixtures_root_dir
-      Photo.find(:all).each do |p|
-        logger.debug p
-      end
+      fixtures_dir_p = Pathname.new(fixtures_root_dir)
+      Photo.stubs(:photo_import_folder).returns(fixtures_dir_p.realpath.to_s)
+      files = []
+      fixtures_dir_p.find {|f| next unless f.file? and f.to_s.ends_with?('JPG'); files << f}
 
+      logger.debug Photo.count
+      logger.debug files
+      assert Photo.count == files.count
     ensure
-      #FileUtils.rm_rf thumb_dir
+      FileUtils.rm_rf thumb_dir
     end
   end
 

@@ -26,11 +26,11 @@ ActionController::Routing::Routes.draw do |map|
   #   m.logout '/logout', :action => 'destroy'
   # end
 
-  map.root :controller => 'welcome'
+  map.root :controller => 'photos', :action => 'index'
 
   map.resources :photos
 
   { 'i' => 'index', 'lt' => 'largethumbnail', 'tt' => 'tinythumbnail' }.each do |k, action|
-    map.connect "#{k}/*relativepath", :controller => 'image', :action => action
+    map.connect "#{k}/:id", :controller => 'image', :action => action
   end
 end

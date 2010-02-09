@@ -53,3 +53,7 @@ begin require 'redgreen'; rescue LoadError; end
 config.after_initialize do
   Timecop.travel(Time.now)
 end
+
+
+PHOTO_IMPORT_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'test', 'fixtures', 'PhotoImportTest'))
+PHOTO_THUMBNAIL_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'photo_cache'))
