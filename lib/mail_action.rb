@@ -9,7 +9,7 @@ class MailAction < Workling::Base
     480
   end
 
-  def can_invoke?
+  def can_invoke?(item)
     true  ## TODO: Verify that ActionMailer works
   end
 

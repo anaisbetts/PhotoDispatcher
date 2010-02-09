@@ -7,3 +7,7 @@
 .image
   %a{:href => latlng_map_link_url(@item)}
     %img{:src => latlng_map_url(@item)}
+
+- @actions.each do |x|
+  .whiteButton
+    %a{:href => "http://google.com"}= x.friendly_name
