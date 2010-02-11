@@ -39,6 +39,7 @@ Rails::Initializer.run do |config|
              :lib => 'exifr'
   config.gem 'lockfile'
   config.gem 'geokit'
+  config.gem 'mail'
   config.gem 'right_aws'  ## Workling wants this and doesn't actually list it in its deps
   
   # Only load the plugins named here, in the order given. By default, all plugins 
