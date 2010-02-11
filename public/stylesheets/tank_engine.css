@@ -98,6 +98,13 @@ body[orient="landscape"] > .toolbar > h1 {
   .whiteButton a, .whiteButton a:active, .whiteButton a:visited, .grayButton a, .grayButton a:active, .grayButton a:visited, .redButton a, .redButton a:active, .redButton a:visited, .yesNoButton a, .yesNoButton a:active, .yesNoButton a:visited {
     color: #222;
     text-decoration: none; }
+  .whiteButton input, .grayButton input, .redButton input, .yesNoButton input {
+    cursor: pointer;
+    background-color: transparent;
+    background: none;
+    border: 0;
+    font-size: 20px;
+    font-weight: bold; }
 
 .whiteButton, .yesNoButton {
   -webkit-border-image: url(/images/tank_engine/whiteButton.png) 0 12 0 12;
@@ -206,11 +213,7 @@ body > .dialog {
 
 input {
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  margin: 8px 0 0 0;
-  padding: 6px 6px 6px 44px;
-  font-size: 16px;
-  font-weight: normal; }
+  -webkit-box-sizing: border-box; }
 
 body > .panel {
   box-sizing: border-box;

@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users, :as => 'u', :shallow => false do |u|
     u.resources :photos
-    u.connect "action/invoke/:name/:id", :controller => 'action', :action => 'invoke'
+    u.connect "action/invoke/:name/:id", :controller => 'actions', :action => 'invoke'
   end
 
   { 'i' => 'index', 'lt' => 'largethumbnail', 'tt' => 'tinythumbnail' }.each do |k, action|

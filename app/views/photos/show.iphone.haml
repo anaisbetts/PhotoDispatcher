@@ -8,8 +8,6 @@
   %a{:href => latlng_map_link_url(@item)}
     %img{:src => latlng_map_url(@item)}
 
-- @actions.each do |x|
-  .whiteButton
-    = link_to x.friendly_name, {:action => "invoke", :controller => "action", :name => x.class, :id => @item.id}
+= render :partial => "actions", :locals => {:actions => @actions, :item => @item}
 
 .redButton= link_to "Delete Photo", {:action => "destroy", :id => @item.id}, :confirm => "Are you sure?", :method => :delete
