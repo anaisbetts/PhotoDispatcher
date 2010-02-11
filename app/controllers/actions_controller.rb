@@ -1,4 +1,5 @@
 class ActionsController < ApplicationController
+  before_filter :authenticate
 
   def invoke
   end

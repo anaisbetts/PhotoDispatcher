@@ -21,18 +21,20 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # map.home '', :controller => 'home', :action => 'dashboard'
-  # map.with_options :controller => 'sessions'  do |m|
-  #   m.login  '/login',  :action => 'new'
-  #   m.logout '/logout', :action => 'destroy'
-  # end
+  map.with_options :controller => 'sessions'  do |m|
+    m.login  '/login',  :action => 'new'
+    m.logout '/logout', :action => 'destroy'
+  end
 
   map.root :controller => 'photos', :action => 'index'
-
-  map.resources :photos
+  
+  map.resources :users, :as => 'u', :shallow => false do |u|
+    u.resources :photos
+    u.connect "action/invoke/:name/:id", :controller => 'action', :action => 'invoke'
+  end
 
   { 'i' => 'index', 'lt' => 'largethumbnail', 'tt' => 'tinythumbnail' }.each do |k, action|
     map.connect "#{k}/:id", :controller => 'image', :action => action
   end
 
-  map.connect "action/invoke/:name/:id", :controller => 'action', :action => 'invoke'
 end

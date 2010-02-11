@@ -2,11 +2,11 @@ require 'tempfile'
 
 class PhotoCollectorWorker < Workling::Base
   def collect(options = {})
-    rf_path = options[:root_folder] || PHOTO_IMPORT_FOLDER
+    rf_path = options[:root_folder]
     root_folder = nil
 
     unless (rf_path and (root_folder = Pathname.new(rf_path).realpath).exist?)
-      logger.fatal "Import folder '#{root_folder ? root_folder.to_s : rf_path}' doesn't exist, set it in config/environments/*"
+      logger.fatal "Import folder '#{root_folder ? root_folder.to_s : rf_path}' doesn't exist for user"
       return false
     end
 
@@ -51,6 +51,7 @@ class PhotoCollectorWorker < Workling::Base
         p = Photo.create(ar_opts) do |f|
           f.relativepath = relative_path
           f.exif_data_yaml = exifdata.to_yaml
+          f.user_id = options[:user_id] || 0
         end
         p.save!
       end

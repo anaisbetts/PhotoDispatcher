@@ -17,6 +17,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 HOST = 'localhost'
+DO_NOT_REPLY = 'donotreply@example.com'
 
 PHOTO_IMPORT_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'test', 'fixtures', 'PhotoImportTest'))
 PHOTO_THUMBNAIL_FOLDER = realpath(File.join(File.dirname(__FILE__), '..', '..', 'tmp', 'photo_cache'))

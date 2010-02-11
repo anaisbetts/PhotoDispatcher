@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_filter :initial_photo_scan
+  include Clearance::Authentication
+
+  before_filter :hack_sign_in
 
   helper :all
 
@@ -8,11 +10,11 @@ class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
 
 private
-  def initial_photo_scan
-    if Photo.count == 0
-      RAILS_DEFAULT_LOGGER.info "No known photos to display, scanning..."
-      PhotoCollectorWorker.async_collect
-    end
+  def hack_sign_in
+    # Sign us in to the first user, always
+    return true if signed_in?
+    return true unless User.count > 0
+    sign_in(User.find(:all)[0])
 
     true
   end

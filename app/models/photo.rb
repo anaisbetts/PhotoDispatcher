@@ -4,6 +4,9 @@ PhotoThumbnailSizes = {
 }
 
 class Photo < ActiveRecord::Base
+  belongs_to :user
+  has_many :actionentries
+
   validates_uniqueness_of :relativepath
   validates_presence_of :tinythumbnail
   validates_presence_of :largethumbnail
@@ -28,11 +31,11 @@ class Photo < ActiveRecord::Base
   def absolutepath
     pn = nil
     begin
-      pn = Pathname.new(File.join(Photo.photo_import_folder, relativepath)).realpath
-      raise "Fail" unless pn.exist? and pn.to_s.starts_with? Photo.photo_import_folder
+      pn = Pathname.new(File.join(photo_import_folder, relativepath)).realpath
+      raise "Fail" unless pn.exist? and pn.to_s.starts_with? photo_import_folder
     rescue
       logger.error "absolutepath '#{relativepath}' is outside import folder: #{$!.message}\n#{$!.backtrace}"
-      logger.debug "expected is '#{Photo.photo_import_folder}'"
+      logger.debug "expected is '#{photo_import_folder}'"
       return nil
     end
 
@@ -68,6 +71,9 @@ class Photo < ActiveRecord::Base
     FileUtils.rm absolutepath
   end
 
+  def photo_import_folder
+    return user.import_path
+  end
 
   ##
   ## Class Methods
@@ -81,10 +87,6 @@ class Photo < ActiveRecord::Base
       cachedir = image_cache_dir || photo_thumbnail_folder
       raise "Thumbnail folder not set, set it in config/environments/*" unless cachedir
       File.join(cachedir, [path_hash, contents_hash, type].join('_')) + ".jpg"
-    end
-
-    def photo_import_folder
-      return PHOTO_IMPORT_FOLDER
     end
 
     def photo_thumbnail_folder

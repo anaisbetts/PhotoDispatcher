@@ -3,7 +3,7 @@ class CreateActionentries < ActiveRecord::Migration
     create_table :actionentries do |t|
       t.string :action
       t.string :error
-      t.integer :user_id
+      t.integer :photo_id
 
       t.timestamps
     end
