@@ -1,4 +1,4 @@
 - actions.each do |x|
-  = form_tag({:action => "invoke", :controller => "actions", :name => x.class, :id => item.id, :user_id => item.user_id, :shallow => false}, :method => "post")
+  = form_tag({:action => "invoke", :controller => "actions", :name => x.action_name, :id => item.id, :user_id => item.user_id, :shallow => false}, :method => "post")
   .whiteButton= submit_tag(x.friendly_name)
   = "</form>"  # God this is gross.
