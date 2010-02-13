@@ -16,7 +16,8 @@ class ImageController < ApplicationController
 
 private
   def send_image(path)
-    send_file path, :type => 'image/jpeg', :disposition => 'inline'
+    response.headers["Cache-Control"] = 'public, max-age=259200'
+    send_file path, :type => 'image/jpeg', :disposition => 'inline', :x_sendfile => true
   end
 
   def photo_from_relativepath()
