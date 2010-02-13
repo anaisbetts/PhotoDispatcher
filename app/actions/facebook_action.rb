@@ -1,4 +1,4 @@
-class EvernoteAction < MailAction
+class FacebookAction < MailAction
   def width; 1024; end
   def height; 768; end
 
