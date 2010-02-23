@@ -40,6 +40,7 @@ Rails::Initializer.run do |config|
   config.gem 'lockfile'
   config.gem 'geokit'
   config.gem 'mail'
+  config.gem 'whenever'
   config.gem 'right_aws'  ## Workling wants this and doesn't actually list it in its deps
   
   # Only load the plugins named here, in the order given. By default, all plugins 
@@ -66,4 +67,8 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+end
+
+Rails::Initializer.run do |config|
+  config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
 end

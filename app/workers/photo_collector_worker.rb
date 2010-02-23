@@ -62,6 +62,14 @@ class PhotoCollectorWorker < Workling::Base
     true
   end
 
+  def collect_all(options = {})
+    pcw = PhotoCollectorWorker.new
+    User.find(:all) do |x|
+      puts "Collecting for #{x.id}"
+      pcw.collect(:root_folder => x.import_path, :user_id => x.id)
+    end
+  end
+
 private
 
   def build_thumbnails(type, resolution, input_file, thumb_root_path)
