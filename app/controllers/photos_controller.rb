@@ -5,7 +5,10 @@ class PhotosController < ApplicationController
   acts_as_iphone_controller :test_mode => true
 
   def index
-    @items = Photo.find_all_by_user_id(current_user.id, :all).map do |p|
+    # Sort by date taken, descending
+    photos = Photo.find_all_by_user_id(current_user.id, :all).sort {|l,r| r.taken_at_time <=> l.taken_at_time}
+
+    @items = photos.map do |p|
       item = ListModel.new(nil, 
                            render_to_string(:partial => "tile", 
                                             :locals => { :item => p}),

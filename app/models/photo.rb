@@ -60,6 +60,10 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  def taken_at_time
+    exif_data[:date_time]
+  end
+
 
   ##
   ## Callbacks
