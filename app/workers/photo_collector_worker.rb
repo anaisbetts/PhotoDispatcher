@@ -17,6 +17,14 @@ class PhotoCollectorWorker < Workling::Base
       logger.debug "Couldn't acquire lockfile"
       return false
     end
+    
+    # Update the last-scanned time
+    u = nil
+    if options[:user_id]
+      u = User.find(options[:user_id])
+      u.last_scanned = Time.now
+      u.save!
+    end
 
     begin
       # Walk the import folder looking for new files
@@ -54,11 +62,12 @@ class PhotoCollectorWorker < Workling::Base
           f.user_id = options[:user_id] || 0
         end
         p.save!
+
       end
     ensure
       lockfile.unlock
     end
-    
+
     true
   end
 

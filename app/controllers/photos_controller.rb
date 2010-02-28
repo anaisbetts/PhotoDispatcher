@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   before_filter :authenticate
-  before_filter :initial_photo_scan
+  before_filter :initiate_photo_scan
 
   acts_as_iphone_controller :test_mode => true
 
@@ -29,12 +29,18 @@ class PhotosController < ApplicationController
 
 private
 
-  def initial_photo_scan
-    if Photo.count == 0
-      logger.info "No known photos to display, scanning '#{current_user.import_path}'..."
+  def initiate_photo_scan
+    if scan_for_photos?
+      logger.info "No photos or haven't checked recently, scanning '#{current_user.import_path}'..."
       PhotoCollectorWorker.async_collect(:root_folder => current_user.import_path, :user_id => current_user.id)
     end
 
     true
+  end
+
+  def scan_for_photos?
+    return false unless current_user
+
+   (current_user.photos.count == 0 or current_user.last_scanned == nil or current_user.last_scanned < 10.minutes.ago)
   end
 end
